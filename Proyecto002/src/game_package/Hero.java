@@ -14,8 +14,8 @@ import Interfaces_game.IShootable;
 
 public class Hero implements IDrawable, IShootable, IMovable, IDead {
 
-	private int x, y, health;
-	private String name;
+	private int x, y, life;
+	private String names;
 	private boolean isAlive;
 	private static List<Bullet> bullets = new ArrayList<>();
 	private Timer shootTimer;
@@ -25,10 +25,10 @@ public class Hero implements IDrawable, IShootable, IMovable, IDead {
 		this.x = x;
 		this.y = y;
 		this.isAlive = true;
-		this.health = health;
-		this.name = name;
+		this.life = health;
+		this.names = name;
 		shootTimer = new Timer(100, e -> {
-			shootTimer.stop(); // Detener el temporizador después de disparar
+			shootTimer.stop(); // Detener el temporizador
 		});
 	}
 
@@ -53,7 +53,7 @@ public class Hero implements IDrawable, IShootable, IMovable, IDead {
         }
     }
 
-	public void updateBullets() {
+	public void update() {
 		for (Bullet bullets : bullets) {
 			bullets.movements("UP");
 		}
@@ -64,10 +64,10 @@ public class Hero implements IDrawable, IShootable, IMovable, IDead {
 	}
 	
     public boolean isAlive() {
-        return health > 0;
+        return life > 0;
     }
     public String getName() {
-        return name;
+        return names;
     }
 
 	@Override
@@ -105,15 +105,15 @@ public class Hero implements IDrawable, IShootable, IMovable, IDead {
 
 	@Override
 	public void die() {
-		health -= 25;
-		if (health < 0) {
-			health = 0;
+		life -= 25;
+		if (life < 0) {
+			life = 0;
 			isAlive = false;
 		}
 	}
 
 	public int getHealth() {
-		return health;
+		return life;
 	}
 
 	public int getY() {

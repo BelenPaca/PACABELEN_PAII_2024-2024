@@ -26,9 +26,9 @@ public class Bullet implements IDrawable, IMovable {
 	}
 
 	@Override
-	public void movements(String direction) {
+	public void movements(String directionG) {
 		// TODO Auto-generated method stub
-		switch (direction) {
+		switch (directionG) {
 		case "UP":
 			y -= 10;
 			if (y < -15) {
@@ -46,9 +46,9 @@ public class Bullet implements IDrawable, IMovable {
 
 	}
 
-	public boolean checkCollision(Hero player) {
+	public boolean collision(Hero hero) {
 		Rectangle bulletBounds = new Rectangle(x, y, 7, 13);
-		Rectangle playerBounds = new Rectangle(player.getX(), player.getY(), 30, 30);
+		Rectangle playerBounds = new Rectangle(hero.getX(), hero.getY(), 30, 30);
 		return bulletBounds.intersects(playerBounds);
 	}
 

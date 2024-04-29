@@ -9,20 +9,20 @@ import Interfaces_game.IShootable;
 
 public class Container {
 
-	public void draw(IDrawable d, Graphics g) {
-		d.draw(g);
+	public void draw(IDrawable dra, Graphics g) {
+		dra.draw(g);
 	}
 
-	public void move(IMovable m, String direction) {
-		m.movements(direction);
+	public void move(IMovable mov, String directionG) {
+		mov.movements(directionG);
 	}
 
-	public void shoot(IShootable s) {
-		s.shoot();
+	public void shoot(IShootable sh) {
+		sh.shoot();
 	}
 
-	public void dead(IDead d) {
-		d.die();
+	public void dead(IDead di) {
+		di.die();
 	}
 
 }

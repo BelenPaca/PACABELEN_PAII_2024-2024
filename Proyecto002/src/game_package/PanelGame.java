@@ -15,7 +15,7 @@ import javax.swing.Timer;
 
 public class PanelGame extends JPanel {
 
-	private Hero player;
+	private Hero hero;
     private Villain enemies;
     private final int GAME_OVER_LINE_Y = 400;
 
@@ -23,8 +23,8 @@ public class PanelGame extends JPanel {
         setBackground(Color.BLACK);
         setFocusable(true);
         
-        String name = JOptionPane.showInputDialog("Ingrese el nombre del jugador:");
-        player = new Hero(390, 440, 200, name);
+        String name = JOptionPane.showInputDialog("Ingrese nombre del usuario:");
+        hero = new Hero(390, 440, 200, name);
         enemies = new Villain(8, 800, 600);
         
     
@@ -35,25 +35,25 @@ public class PanelGame extends JPanel {
                 int keyCode = e.getKeyCode();
                 switch (keyCode) {
                     case KeyEvent.VK_UP:
-                        player.movements("UP");
+                        hero.movements("UP");
                         break;
                     case KeyEvent.VK_DOWN:
-                        player.movements("DOWN");
+                        hero.movements("DOWN");
                         break;
                     case KeyEvent.VK_LEFT:
-                        player.movements("LEFT");
+                        hero.movements("LEFT");
                         break;
                     case KeyEvent.VK_RIGHT:
-                        player.movements("RIGHT");
+                        hero.movements("RIGHT");
                         break;
                     case KeyEvent.VK_SPACE:
-                        player.shoot(); // El jugador dispara cuando se presiona la tecla de espacio
+                        hero.shoot(); // El jugador dispara 
                         break;
                 }
             }
         });
 
-        // Agregar un temporizador para actualizar el juego
+        // Agregar un temporizador
         Timer timer = new Timer(1000 / 60, e -> {
             updateGame(); // Actualizar el estado del juego
             repaint(); // Volver a dibujar el panel
@@ -62,11 +62,11 @@ public class PanelGame extends JPanel {
     }
 
     private void updateGame() {
-        player.updateBullets(); // Actualizar las balas del jugador
+        hero.update(); // Actualizar las balas del jugador
         enemies.movements("LEFT"); // Mover a los enemigos
 
         // Verificar las colisiones entre las balas del jugador y los enemigos
-        Iterator<Bullet> bulletIterator = player.getBullets().iterator();
+        Iterator<Bullet> bulletIterator = hero.getBullets().iterator();
         while (bulletIterator.hasNext()) {
             Bullet bullet = bulletIterator.next();
             if (enemies.checkCollision(bullet)) {
@@ -75,7 +75,7 @@ public class PanelGame extends JPanel {
         }
 
      // Verificar si el jugador ha perdido todas las vidas
-        if (!player.isAlive() || player.getY() < GAME_OVER_LINE_Y) {
+        if (!hero.isAlive() || hero.getY() < GAME_OVER_LINE_Y) {
             JOptionPane.showMessageDialog(null, "GAME OVER");
             System.exit(0);
         }
@@ -94,11 +94,11 @@ public class PanelGame extends JPanel {
         g.setColor(Color.WHITE);
         g.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         g.drawString("Score: " + enemies.getScore(), 670, 20);
-        g.drawString(player.getName(), 0, 20);
+        g.drawString(hero.getName(), 0, 20);
 
         // Dibujar la barra de vida
         g.setColor(Color.RED);
-        g.fillRect(2, 30, player.getHealth(), 15); // Dibuja la barra de vida en la esquina superior izquierda
+        g.fillRect(2, 30, hero.getHealth(), 15); // Dibuja la barra de vida en la esquina superior izquierda
 
         // Dibujar la línea divisoria
         int yLinea = (int) (getHeight() * 0.66);
@@ -106,7 +106,7 @@ public class PanelGame extends JPanel {
         g.drawLine(0, yLinea, getWidth(), yLinea);
 
         // Dibujar las balas del jugador
-        for (Bullet bullet : player.getBullets()) {
+        for (Bullet bullet : hero.getBullets()) {
             bullet.draw(g); // Dibuja cada bala en la lista de balas del jugador
         }
     }
@@ -115,7 +115,7 @@ public class PanelGame extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        player.draw(g); // Dibujar al jugador
+        hero.draw(g); // Dibujar al jugador
         enemies.draw(g); // Dibujar a los enemigos
         drawScoreAndHealth(g); // Dibujar puntaje, nombre del jugador, barra de vida y línea divisoria
 
