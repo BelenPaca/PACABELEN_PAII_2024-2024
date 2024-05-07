@@ -14,10 +14,10 @@ public class Conexion {
 		if (connection == null) {
 			try {
 				connection = DriverManager.getConnection(url, user, password);
-				boolean valida = connection.isValid(5000);
-				System.out.println(valida ? "La conexión se arealizado con exito" : "Fallo de conexion");
+				boolean val = connection.isValid(5000);
+				System.out.println(val ? "La conexión se arealizado con exito" : "Fallo de la conexion");
 			} catch (java.sql.SQLException e) {
-				System.out.println("Error sql:" + e.getErrorCode());
+				System.out.println("Error:" + e.getErrorCode());
 			}
 		}
 		return connection;

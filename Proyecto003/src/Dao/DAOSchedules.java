@@ -22,7 +22,7 @@ public class DAOSchedules implements IDAOSchedules{
 	}
 
 	@Override
-	public void update(Connection connection, Student schedules, int id_Schedules) throws SQLException {
+	public void update(Connection connection, Schedules  schedules, int id_Schedules) throws SQLException {
 		// TODO Auto-generated method stub
 		
 	}

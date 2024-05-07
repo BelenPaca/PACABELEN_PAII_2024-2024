@@ -23,7 +23,7 @@ public class Main {
      
      
   // Creamos un profesor
-     DAOTeacher teacher = new DAOTeacher(02, "Vinicio", "Cedeño", 28);
+     DAOTeacher teacher = new DAOTeacher(02, "Vinicio", "Lopez", 40);
 
 	}
 
